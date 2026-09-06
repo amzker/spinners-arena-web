@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinners Arena - Official Website, Rivals Roster & Compliance | AmzkerStudios</title>
+    <meta name="description" content="Spinners Arena: High-octane 3D mechanical spinner combat by AmzkerStudios. Forge custom 4-part modular builds, master physics, conquer tiered districts, and battle rivals.">
+    
+    <!-- Favicon & OpenGraph Metadata -->
+    <link rel="icon" type="image/png" href="icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Spinners Arena - Official Website & Rival Roster">
+    <meta property="og:description" content="Master 3D mechanical top combat with 4-part modular engineering and 20+ rival pilots.">
+    <meta property="og:image" content="hero_banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="hero_banner.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #05070a;
+            --bg-primary: #0a0d14;
+            --bg-secondary: #0f131c;
+            --bg-card: #141924;
+            --bg-card-hover: #1b2230;
+            --accent-gold: #f5c451;
+            --accent-gold-glow: rgba(245, 196, 81, 0.35);
+            --accent-cyan: #44b4e8;
+            --accent-cyan-glow: rgba(68, 180, 232, 0.35);
+            --accent-orange: #e85d38;
+            --accent-purple: #9b51e0;
+            --text-primary: #f0f3f8;
+            --text-secondary: #9da8b9;
+            --text-muted: #5e697a;
+            --border-subtle: #1c2433;
+            --border-glow: #2d3a50;
+            --font-display: 'Rajdhani', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .cyber-font {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Ambient Backgrounds */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(circle at 15% 10%, rgba(68, 180, 232, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 70%, rgba(245, 196, 81, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(232, 93, 56, 0.05) 0%, transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 8%;
+            background: rgba(10, 13, 20, 0.9);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        .brand-logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 9px;
+            object-fit: cover;
+            border: 1px solid rgba(245, 196, 81, 0.5);
+            box-shadow: 0 0 16px var(--accent-gold-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px var(--accent-gold-glow);
+        }
+
+        /* Roster Marquee Banner */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: linear-gradient(90deg, #07090e, #111622, #07090e);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.9rem 0;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            animation: scroll 38s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 6px 14px 6px 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .marquee-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 14px var(--accent-gold-glow);
+            transform: translateY(-2px);
+        }
+
+        .marquee-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .marquee-info h4 {
+            font-size: 0.95rem;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .marquee-info span {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4.5rem 8% 3rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.4rem 1.4rem;
+            background: rgba(245, 196, 81, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 50px;
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px var(--accent-gold-glow);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(180deg, #ffffff 40%, #a4b2c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ff8b2b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-lead {
+            max-width: 720px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.95rem 2.2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-gold), #e0a325);
+            color: #080a0f;
+            border: none;
+            box-shadow: 0 4px 25px var(--accent-gold-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 196, 81, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-glow);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--accent-cyan-glow);
+            transform: translateY(-3px);
+        }
+
+        .hero-banner-frame {
+            max-width: 1080px;
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(245, 196, 81, 0.18);
+            background: #000;
+        }
+
+        .hero-banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Rivals Roster Showcase */
+        .roster-section {
+            padding: 5rem 8%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.6rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .roster-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .spotlight-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .spotlight-frame {
+            width: 260px;
+            height: 260px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 30px var(--accent-gold-glow);
+            margin-bottom: 1.5rem;
+            background: #000;
+        }
+
+        .spotlight-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .spotlight-name {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .spotlight-title {
+            font-size: 0.95rem;
+            color: var(--accent-gold);
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .spotlight-bio {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            max-width: 380px;
+        }
+
+        .roster-picker {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .roster-picker h3 {
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.5rem;
+        }
+
+        .pilot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 10px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .pilot-thumb {
+            aspect-ratio: 1/1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #000;
+        }
+
+        .pilot-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: all 0.2s;
+        }
+
+        .pilot-thumb:hover, .pilot-thumb.active {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 14px var(--accent-gold-glow);
+        }
+
+        .pilot-thumb:hover img, .pilot-thumb.active img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* 4-Part Modular Forge: 4 Balanced Columns */
+        .forge-section {
+            padding: 5rem 8%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .forge-grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .forge-card-sleek {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 2.2rem 1.6rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .forge-card-sleek::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--card-color, var(--accent-gold));
+            box-shadow: 0 0 12px var(--card-color, var(--accent-gold));
+        }
+
+        .forge-card-sleek:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-glow);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 196, 81, 0.1);
+        }
+
+        .forge-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .forge-step {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--card-color, var(--accent-gold));
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .forge-icon {
+            font-size: 1.8rem;
+        }
+
+        .forge-card-sleek h3 {
+            font-size: 1.45rem;
+            color: #ffffff;
+            margin-bottom: 0.6rem;
+        }
+
+        .forge-role {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--card-color, var(--accent-gold));
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .forge-card-sleek p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.55;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .forge-spec-box {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            padding: 0.8rem;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .spec-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .spec-item span:last-child {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        /* Districts Section */
+        .districts-section {
+            padding: 5rem 8%;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .districts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .district-card {
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.25s;
+        }
+
+        .district-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+        }
+
+        .district-img-wrap {
+            height: 190px;
+            overflow: hidden;
+        }
+
+        .district-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .district-card:hover .district-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .district-info {
+            padding: 1.5rem;
+        }
+
+        .district-info h3 {
+            font-size: 1.35rem;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .district-info span {
+            font-size: 0.8rem;
+            color: var(--accent-orange);
+            font-family: var(--font-mono);
+        }
+
+        /* Modernized Legal, Compliance & Support Hub */
+        .hub-section {
+            padding: 5rem 8%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hub-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hub-tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 0.85rem 1.8rem;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hub-tab-btn:hover {
+            border-color: var(--accent-gold);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .hub-tab-btn.active {
+            background: linear-gradient(135deg, rgba(245, 196, 81, 0.15), rgba(232, 93, 56, 0.15));
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            box-shadow: 0 0 20px var(--accent-gold-glow);
+        }
+
+        .hub-panel {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .hub-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphic Terminal Card */
+        .cyber-panel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 3rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .compliance-pills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .pill-badge {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pill-icon {
+            font-size: 1.6rem;
+        }
+
+        .pill-text h5 {
+            font-size: 0.95rem;
+            color: #fff;
+            font-family: var(--font-body);
+            font-weight: 700;
+        }
+
+        .pill-text span {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            font-family: var(--font-mono);
+        }
+
+        .legal-block {
+            margin-bottom: 2rem;
+            padding-bottom: 1.8rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .legal-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .legal-block h4 {
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legal-block p, .legal-block ul {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.65;
+        }
+
+        .legal-block ul {
+            padding-left: 1.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .legal-block li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Support & Developer Contact Hub */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-channel-card {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 1.8rem;
+            text-align: center;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-channel-card:hover {
+            border-color: var(--accent-gold);
+            background: rgba(245, 196, 81, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px var(--accent-gold-glow);
+        }
+
+        .contact-channel-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-channel-card h4 {
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-channel-card span {
+            color: var(--accent-gold);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .contact-channel-card p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-deep);
+            border-top: 1px solid var(--border-subtle);
+            padding: 3rem 8% 2rem;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1100px) {
+            .forge-grid-4col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .roster-showcase {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            nav {
+                justify-content: center;
+            }
+            .hero {
+                padding: 3rem 5% 2rem;
+            }
+            .cyber-panel-card {
+                padding: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .forge-grid-4col {
+                grid-template-columns: 1fr;
+            }
+            .hub-tab-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+    <div class="cyber-grid"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="brand">
+            <img src="icon.png" alt="Spinners Arena Logo" class="brand-logo-img">
+            <span>SPINNERS ARENA</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#roster">Rivals Roster</a></li>
+            <li><a href="#forge">Modular Forge</a></li>
+            <li><a href="#districts">Districts</a></li>
+            <li><a href="#compliance-hub">Privacy & Compliance</a></li>
+            <li><a href="#contact-tab">Support</a></li>
+        </ul>
+    </nav>
+
+    <!-- Roster Marquee Banner -->
+    <div class="marquee-container">
+        <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="hero-badge">⚡ METAL LEAGUE COMPETITION • AMZKERSTUDIOS</div>
+        <h1>SPINNERS <span>ARENA</span></h1>
+        <p class="hero-lead">High-speed 3D mechanical spinner combat. Forge modular 4-part battle builds, master real-time collision physics, and dominate 20+ elite rival pilots across tiered industrial districts.</p>
+        
+        <div class="hero-buttons">
+            <a href="#roster" class="btn btn-primary">⚔️ Meet The Rivals</a>
+            <a href="#compliance-hub" class="btn btn-secondary">🛡️ Privacy & Compliance</a>
+            <a href="#compliance-hub" onclick="switchTab('tab-contact')" class="btn btn-secondary">✉️ Support & Contact</a>
+        </div>
+
+        <div class="hero-banner-frame">
+            <img src="hero_banner.png" alt="Spinners Arena Championship Match" class="hero-banner-img">
+        </div>
+    </section>
+
+    <!-- Interactive Rivals Roster -->
+    <section class="roster-section" id="roster">
+        <div class="section-header">
+            <h2>Elite Rivals Roster</h2>
+            <p>Select any contender to view their combat profile, district rank, and signature build</p>
+        </div>
+
+        <div class="roster-showcase">
+            <div class="spotlight-card">
+                <div class="spotlight-frame">
+                    <img id="spotlightImg" src="assets/avatars/rhea_steel.png" alt="Rhea Steel">
+                </div>
+                <h3 class="spotlight-name" id="spotlightName">RHEA STEEL</h3>
+                <div class="spotlight-title" id="spotlightTitle">FOUNDRY DISTRICT CHAMPION • SEED 1</div>
+                <p class="spotlight-bio" id="spotlightBio">Relentless kinetic pressure specialist who relies on heavy forged steel defense and precise angular collisions to drain rival rotational energy.</p>
+            </div>
+
+            <div class="roster-picker">
+                <h3>Select Contender (20+ Pilots)</h3>
+                <div class="pilot-grid" id="pilotGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4-Part Modular Forge (Balanced 4 Equal Columns) -->
+    <section class="forge-section" id="forge">
+        <div class="section-header">
+            <h2>4-Part Modular Engineering</h2>
+            <p>Complete mechanical modularity. Every component directly shapes 3D mass, angular inertia, and friction physics.</p>
+        </div>
+
+        <div class="forge-grid-4col">
+            <!-- Part 1: Energy Layer -->
+            <div class="forge-card-sleek" style="--card-color: var(--accent-gold);">
+                <div class="forge-header-row">
+                    <span class="forge-step">STEP 01</span>
+                    <span class="forge-icon">⚔️</span>
+                </div>
+                <div class="forge-role">PRIMARY IMPACT & BLADE PERIMETER</div>
+                <h3>Energy Layer</h3>
+                <p>Governs contact geometry, kinetic rupture bursts, and shock deflection angles against colliding tops.</p>
+                <div class="forge-spec-box">
+                    <div class="spec-item"><span>Primary Stat</span><span>Attack / Rupture</span></div>
+                    <div class="spec-item"><span>Signature Part</span><span>Corona Striker</span></div>
+                </div>
+            </div>
+
+            <!-- Part 2: Weight Disc -->
+            <div class="forge-card-sleek" style="--card-color: var(--accent-orange);">
+                <div class="forge-header-row">
+                    <span class="forge-step">STEP 02</span>
+                    <span class="forge-icon">🛡️</span>
+                </div>
+                <div class="forge-role">MASS & FLYWHEEL MOMENTUM</div>
+                <h3>Weight Disc</h3>
+                <p>Distributes central vs perimeter weight, stabilizing high angular velocity and preventing ring-out knockbacks.</p>
+                <div class="forge-spec-box">
+                    <div class="spec-item"><span>Primary Stat</span><span>Mass / Armor</span></div>
+                    <div class="spec-item"><span>Signature Part</span><span>Titan Heavyweight</span></div>
+                </div>
+            </div>
+
+            <!-- Part 3: Gyroscopic Core -->
+            <div class="forge-card-sleek" style="--card-color: var(--accent-purple);">
+                <div class="forge-header-row">
+                    <span class="forge-step">STEP 03</span>
+                    <span class="forge-icon">⚙️</span>
+                </div>
+                <div class="forge-role">AXIAL LOCK & GYRO STABILIZATION</div>
+                <h3>Gyroscopic Core</h3>
+                <p>Maintains spin axis equilibrium, absorbs brutal vertical impacts, and mitigates rotational precessional wobble.</p>
+                <div class="forge-spec-box">
+                    <div class="spec-item"><span>Primary Stat</span><span>Stability / Dampening</span></div>
+                    <div class="spec-item"><span>Signature Part</span><span>Gyro Lock Matrix</span></div>
+                </div>
+            </div>
+
+            <!-- Part 4: Performance Driver -->
+            <div class="forge-card-sleek" style="--card-color: var(--accent-cyan);">
+                <div class="forge-header-row">
+                    <span class="forge-step">STEP 04</span>
+                    <span class="forge-icon">⚡</span>
+                </div>
+                <div class="forge-role">SURFACE TRACTION & DRIFT MOBILITY</div>
+                <h3>Performance Driver</h3>
+                <p>Dictates arena floor grip, high-torque launch sprints, curved ramp aerial jumps, and orbit circle drift.</p>
+                <div class="forge-spec-box">
+                    <div class="spec-item"><span>Primary Stat</span><span>Speed / Mobility</span></div>
+                    <div class="spec-item"><span>Signature Part</span><span>Turbo Kinetic Tip</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Districts Gallery -->
+    <section class="districts-section" id="districts">
+        <div class="section-header">
+            <h2>Championship Districts</h2>
+            <p>Battle through unique multi-tiered battle zones across World 1 and World 2</p>
+        </div>
+
+        <div class="districts-grid">
+            <div class="district-card">
+                <div class="district-img-wrap">
+                    <img src="assets/districts/district_foundry.jpg" alt="Foundry District">
+                </div>
+                <div class="district-info">
+                    <span>WORLD 1 • DISTRICT 01</span>
+                    <h3>The Foundry Basin</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Molten steel gutters and heavy reinforced steel blast rings.</p>
+                </div>
+            </div>
+            <div class="district-card">
+                <div class="district-img-wrap">
+                    <img src="assets/districts/district_skydock.jpg" alt="Sky Docks">
+                </div>
+                <div class="district-info">
+                    <span>WORLD 2 • DISTRICT 04</span>
+                    <h3>Sky Docks Colosseum</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">High-altitude stadium with severe wind drafts and banked rebound walls.</p>
+                </div>
+            </div>
+            <div class="district-card">
+                <div class="district-img-wrap">
+                    <img src="assets/districts/district_cryo_bay.jpg" alt="Cryo Bay">
+                </div>
+                <div class="district-info">
+                    <span>WORLD 2 • DISTRICT 02</span>
+                    <h3>Cryo Bay Sub-Zero</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Sub-zero frost arena with reduced surface friction and high-speed drift.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sleek Compliance, Legal & Support Hub -->
+    <section class="hub-section" id="compliance-hub">
+        <div class="section-header">
+            <h2>Compliance, Privacy & Support</h2>
+            <p>Committed to transparent data practices, child safety compliance, and direct player support</p>
+        </div>
+
+        <!-- Segmented Tab Controls -->
+        <div class="hub-tabs">
+            <button class="hub-tab-btn active" onclick="switchTab('tab-privacy')">🛡️ Privacy Policy</button>
+            <button class="hub-tab-btn" onclick="switchTab('tab-terms')">📜 Terms of Service</button>
+            <button class="hub-tab-btn" id="contact-tab" onclick="switchTab('tab-contact')">✉️ Support & Developer Contact</button>
+        </div>
+
+        <!-- Panel 1: Privacy Policy -->
+        <div class="hub-panel active" id="tab-privacy">
+            <div class="cyber-panel-card">
+                
+                <!-- Quick Compliance Metric Badges -->
+                <div class="compliance-pills">
+                    <div class="pill-badge">
+                        <span class="pill-icon">🔒</span>
+                        <div class="pill-text">
+                            <h5>0% Remote Data</h5>
+                            <span>No Cloud Account Needed</span>
+                        </div>
+                    </div>
+                    <div class="pill-badge">
+                        <span class="pill-icon">👶</span>
+                        <div class="pill-text">
+                            <h5>PG Rated / Family Safe</h5>
+                            <span>COPPA & DPDP Compliant</span>
+                        </div>
+                    </div>
+                    <div class="pill-badge">
+                        <span class="pill-icon">🚫</span>
+                        <div class="pill-text">
+                            <h5>No Sensitive Ads</h5>
+                            <span>Gambling & Politics Blocked</span>
+                        </div>
+                    </div>
+                    <div class="pill-badge">
+                        <span class="pill-icon">💾</span>
+                        <div class="pill-text">
+                            <h5>Local Sandbox Save</h5>
+                            <span>100% Offline Progression</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>🛡️</span> 1. Commitment & Core Principles</h4>
+                    <p>AmzkerStudios ("we", "our") develops and operates <strong>Spinners Arena</strong>. We believe in privacy-by-design. <em>Spinners Arena</em> is engineered as an offline-capable, family-friendly game that minimizes all data collection.</p>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>🚫</span> 2. Data We Do NOT Collect</h4>
+                    <ul>
+                        <li><strong>Zero Personal Identification:</strong> We never collect your real name, phone number, physical address, or email.</li>
+                        <li><strong>No Location Access:</strong> Precise GPS and coarse network location permissions (<code>ACCESS_FINE_LOCATION</code>) are permanently disabled.</li>
+                        <li><strong>No Private File Access:</strong> We never request access to your contacts, camera, photo gallery, or device storage files.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>💾</span> 3. Local Game Data Architecture</h4>
+                    <p>All career progress, unlocked spinner parts, loadouts, credits, and achievements are stored strictly inside your device's local internal application sandbox. No gameplay history or user profiles are transmitted to unauthorized remote servers.</p>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>📢</span> 4. Advertising & InMobi Integration</h4>
+                    <p>To support ongoing development and provide optional rewards (such as "Decrypt Combat Intel" and "Free Daily Credits"), <em>Spinners Arena</em> integrates compliant third-party ad networks (<strong>InMobi</strong>).</p>
+                    <ul>
+                        <li><strong>Sensitive Categories Blocked:</strong> All Gambling, Political, and Alcohol advertisements are strictly blocked.</li>
+                        <li><strong>Opt-Out Controls:</strong> You can reset or delete your advertising identifier at any time via Android Settings (<em>Settings &gt; Google &gt; Ads &gt; Reset or Delete Advertising ID</em>).</li>
+                    </ul>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>👶</span> 5. Child Safety & COPPA Compliance</h4>
+                    <p><em>Spinners Arena</em> is a general audience, PG-rated game. We do not knowingly collect personal information from children under 13. If you believe any personal data has inadvertently been provided, please contact us immediately for instant removal.</p>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>🗑️</span> 6. User Data Deletion</h4>
+                    <p>Because <em>Spinners Arena</em> does not create remote accounts or maintain server databases, there is no remote server data to delete. All save files and preferences reside purely on your device and can be permanently removed at any time by clearing the app data or uninstalling the game.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Panel 2: Terms of Service -->
+        <div class="hub-panel" id="tab-terms">
+            <div class="cyber-panel-card">
+                <div class="legal-block">
+                    <h4><span>📜</span> 1. License & Personal Entertainment</h4>
+                    <p>AmzkerStudios grants you a non-exclusive, non-transferable, revocable license to install and play <em>Spinners Arena</em> for personal, non-commercial entertainment purposes.</p>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>🪙</span> 2. Virtual Items & In-Game Economy</h4>
+                    <p>All credits, components, materials, and cosmetic parts acquired in <em>Spinners Arena</em> are virtual goods. They have no real-world cash value and cannot be redeemed, transferred, or refunded for fiat currency.</p>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>⚖️</span> 3. Fair Play & LAN Multiplayer</h4>
+                    <p>Local LAN multiplayer is intended for friendly peer-to-peer gameplay over private local Wi-Fi networks. Reverse engineering or attempting unauthorized modification of game physics is prohibited.</p>
+                </div>
+
+                <div class="legal-block">
+                    <h4><span>🛡️</span> 4. Disclaimer of Warranties</h4>
+                    <p><em>Spinners Arena</em> is provided "as is" without warranties of any kind. AmzkerStudios is not liable for device incompatibility, third-party network interruptions, or data loss caused by unauthorized device modifications.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 3: Support & Contact -->
+        <div class="hub-panel" id="tab-contact">
+            <div class="cyber-panel-card">
+                <div class="legal-block">
+                    <h4><span>✉️</span> Official AmzkerStudios Support</h4>
+                    <p>Have a bug report, balance suggestion, or partnership inquiry? Reach out directly through any of our verified developer channels:</p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Email -->
+                    <a href="mailto:amzker@proton.me" class="contact-channel-card">
+                        <div class="contact-channel-icon">📧</div>
+                        <h4>Proton Mail</h4>
+                        <span>amzker@proton.me</span>
+                        <p>Encrypted, direct developer support</p>
+                    </a>
+
+                    <!-- Telegram -->
+                    <a href="https://t.me/amzker" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                        <div class="contact-channel-icon">✈️</div>
+                        <h4>Telegram Direct</h4>
+                        <span>@amzker</span>
+                        <p>Fast community chat & feedback</p>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/amzker" target="_blank" rel="noopener noreferrer" class="contact-channel-card">
+                        <div class="contact-channel-icon">🐙</div>
+                        <h4>GitHub Profile</h4>
+                        <span>@amzker</span>
+                        <p>Source repos & release tracking</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AmzkerStudios. All rights reserved. Spinners Arena is an independent game.</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Rival Roster Database
+        const rivals = [
+            { id: "rhea_steel", name: "RHEA STEEL", title: "FOUNDRY DISTRICT CHAMPION • SEED 1", bio: "Relentless kinetic pressure specialist with heavy forged steel defense and precise angular collisions.", img: "assets/avatars/rhea_steel.png" },
+            { id: "nova_rex", name: "NOVA REX", title: "HIGH-SPEED IMPACT SPECIALIST • SEED 2", bio: "Aggressive striker equipped with sweeping titanium blades for devastating explosive burst damage.", img: "assets/avatars/nova_rex.png" },
+            { id: "kabir_axis", name: "KABIR AXIS", title: "HEAVY RING CONTROLLER • SEED 3", bio: "Monolithic heavyweight juggernaut who dominates center-stage and forces ring outs with raw mass.", img: "assets/avatars/kabir_axis.png" },
+            { id: "zane_forge", name: "ZANE FORGE", title: "FORGE-DISC STRIKER • SEED 4", bio: "Balanced competitor utilizing abrasive multi-point contact blades and balanced recoil absorption.", img: "assets/avatars/zane_forge.png" },
+            { id: "vex_corona", name: "VEX CORONA", title: "SOLAR OVERDRIVE MASTER • WORLD 2", bio: "Elite World 2 champion wielding the high-frequency Corona Striker and Tungsten Carbide disc.", img: "assets/avatars/vex_corona.png" },
+            { id: "viper_venom", name: "VIPER VENOM", title: "FIVE-FANG RUPTURE ACE • WORLD 2", bio: "Serrated perimeter tactician specialized in glancing ruptures and high-torque wall rebounds.", img: "assets/avatars/viper_venom.png" },
+            { id: "titan_claw", name: "TITAN CLAW", title: "TITAN COLOSSEUM VETERAN • WORLD 2", bio: "Colossal defense build with immense angular momentum and impenetrable shock dampening.", img: "assets/avatars/titan_claw.png" },
+            { id: "mika_torque", name: "MIKA TORQUE", title: "STAMINA TECHNICIAN • SEED 5", bio: "Master of RPM conservation and low-friction drift maneuvers, outlasting opponents in late rounds.", img: "assets/avatars/mika_torque.png" },
+            { id: "aria_voss", name: "ARIA VOSS", title: "AERO DRIFT PILOT • SEED 6", bio: "Agile speedster who uses banked stadium ramps to execute aerial dive slams.", img: "assets/avatars/aria_voss.png" },
+            { id: "orion_kai", name: "ORION KAI", title: "TACTICAL COUNTER BLADER • SEED 7", bio: "High-reaction defense build designed to absorb brutal smashes and strike back on recoil.", img: "assets/avatars/orion_kai.png" },
+            { id: "draco_fang", name: "DRACO FANG", title: "DUAL IMPACT HUNTER • PRO LEAGUE", bio: "Dual-blade attack profile engineered for devastating edge-snapping strikes.", img: "assets/avatars/draco_fang.png" },
+            { id: "chrono_shift", name: "CHRONO SHIFT", title: "TEMPORAL VORTEX ACE • PRO QUALIFIER", bio: "Rotational momentum master conserving velocity through aerodynamic turbine blade channels.", img: "assets/avatars/chrono_shift.png" },
+            { id: "aura_cyclone", name: "AURA CYCLONE", title: "CYCLONE MATRIX PILOT", bio: "Aerodynamic stamina competitor utilizing vortex suction channels to destabilize rival cores.", img: "assets/avatars/aura_cyclone.png" },
+            { id: "blaze_talon", name: "BLAZE TALON", title: "THERMAL CONTACT ACE", bio: "High-friction striker generating high-temperature spark flares on collision.", img: "assets/avatars/blaze_talon.png" },
+            { id: "glacier_bulwark", name: "GLACIER BULWARK", title: "CRYO BAY DEFENDER", bio: "Sub-zero fortress build maximizing rebound deflection against heavy assault spinners.", img: "assets/avatars/glacier_bulwark.png" },
+            { id: "volt_raven", name: "VOLT RAVEN", title: "ELECTRIC DISCHARGE STRIKER", bio: "Lightning-fast perimeter skirmisher specialized in sudden directional cuts.", img: "assets/avatars/volt_raven.png" }
+        ];
+
+        // Populate Marquee
+        const marqueeTrack = document.getElementById("marqueeTrack");
+        const doubleRivals = [...rivals, ...rivals];
+        doubleRivals.forEach(r => {
+            const item = document.createElement("div");
+            item.className = "marquee-item";
+            item.innerHTML = `
+                <img src="${r.img}" alt="${r.name}" class="marquee-avatar">
+                <div class="marquee-info">
+                    <h4>${r.name}</h4>
+                    <span>${r.title.split('•')[0]}</span>
+                </div>
+            `;
+            item.onclick = () => {
+                selectPilot(r);
+                document.getElementById('roster').scrollIntoView({ behavior: 'smooth' });
+            };
+            marqueeTrack.appendChild(item);
+        });
+
+        // Populate Pilot Grid
+        const pilotGrid = document.getElementById("pilotGrid");
+        rivals.forEach((r, idx) => {
+            const thumb = document.createElement("div");
+            thumb.className = `pilot-thumb ${idx === 0 ? 'active' : ''}`;
+            thumb.innerHTML = `<img src="${r.img}" alt="${r.name}">`;
+            thumb.onclick = () => {
+                document.querySelectorAll('.pilot-thumb').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+                selectPilot(r);
+            };
+            pilotGrid.appendChild(thumb);
+        });
+
+        function selectPilot(pilot) {
+            document.getElementById("spotlightImg").src = pilot.img;
+            document.getElementById("spotlightName").innerText = pilot.name;
+            document.getElementById("spotlightTitle").innerText = pilot.title;
+            document.getElementById("spotlightBio").innerText = pilot.bio;
+        }
+
+        // Tab Switcher for Legal & Support Hub
+        function switchTab(tabId) {
+            document.querySelectorAll('.hub-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.hub-panel').forEach(panel => panel.classList.remove('active'));
+
+            const activeBtn = Array.from(document.querySelectorAll('.hub-tab-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const targetPanel = document.getElementById(tabId);
+            if (targetPanel) targetPanel.classList.add('active');
+        }
+    </script>
+</body>
+</html>
